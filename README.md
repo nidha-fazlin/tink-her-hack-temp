@@ -77,24 +77,19 @@ List the key features of your project:
 
 ![Screenshot1](<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/7e4b0bbf-e3b8-4428-a020-851871c89d0b" />
 )
-*Add caption explaining what this shows*
 
 ![Screenshot2](<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/50cc57bd-71c4-4cf3-9ffd-62092217ea9e" />
 )
-*Add caption explaining what this shows*
 
 ![Screenshot3](<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/81f12e95-7a59-456c-9a7c-dcbd03ed8cde" />
 )
 )
-*Add caption explaining what this shows*
 
 ![Screenshot4](<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/efd6fbd4-bf7b-4381-89e1-7142461de291" />
 )
-*Add caption explaining what this shows*
 
 ![Screenshot5](<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/83873e99-383f-493f-ab9d-8b40071a1db7" />
 )
-*Add caption explaining what this shows*
 
 
 
@@ -104,7 +99,6 @@ List the key features of your project:
 
 ![Architecture Diagram](![WhatsApp Image 2026-02-27 at 16 01 01](https://github.com/user-attachments/assets/a3a88567-8b27-4989-9e7e-49939d910641)
 )
-*Explain your system architecture - components, data flow, tech stack interaction*
 
 
 ---
