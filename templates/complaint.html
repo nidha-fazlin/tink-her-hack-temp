@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Submit Complaint - SafeNest</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/complaint.css') }}">
+</head>
+
+<body class="complaint-page">
+    <div class="complaint-container">
+        <div class="complaint-header">
+            <h1>🛡️ SafeNest</h1>
+            <p>Submit Your Complaint Safely and Securely</p>
+        </div>
+
+        <form action="/submit" method="POST">
+            <div class="form-group">
+                <label for="complaint_text">Your Complaint</label>
+                <textarea id="complaint_text" name="complaint_text" 
+                    placeholder="Please describe your complaint in detail..." required></textarea>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="anonCheck" name="anonymous" onchange="toggleFields()">
+                <label for="anonCheck">Submit Anonymously</label>
+            </div>
+
+            <div id="details">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                    <label for="room_no">Room / Apartment Number</label>
+                    <input type="text" id="room_no" name="room_no" placeholder="e.g., 101 or A-205">
+                </div>
+                <div class="form-group">
+                    <label for="phone_no">Phone Number</label>
+                    <input type="tel" id="phone_no" name="phone_no" placeholder="Your contact number">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-submit">📬 Submit Complaint</button>
+                <a href="/" class="btn-cancel">❌ Cancel</a>
+            </div>
+        </form>
+
+        <div class="complaint-footer">
+            Your privacy is important to us. All complaints are handled confidentially.
+        </div>
+    </div>
+
+    <script>
+        function toggleFields() {
+            var check = document.getElementById("anonCheck");
+            var details = document.getElementById("details");
+
+            if (check.checked) {
+                details.style.display = "none";
+            } else {
+                details.style.display = "block";
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', toggleFields);
+    </script>
+</body>
+</html>

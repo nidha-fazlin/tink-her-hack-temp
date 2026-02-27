@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Complaint Submitted - SafeNest</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body.success-page {
+            background: linear-gradient(135deg, #141E30 0%, #243B55 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .success-container {
+            max-width: 500px;
+            width: 100%;
+            animation: slideInDown 0.8s ease-out;
+        }
+
+        .success-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 2px solid #4CAF50;
+        }
+
+        .success-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: bounceIn 0.8s ease-out;
+        }
+
+        .success-message {
+            font-size: 24px;
+            font-weight: 600;
+            color: #141E30;
+            margin-bottom: 15px;
+        }
+
+        .success-subtext {
+            font-size: 14px;
+            color: #777777;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .complaint-id-box {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .complaint-id-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .complaint-id-value {
+            color: #ffffff;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+
+        .copy-button {
+            background: #141E30;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-button:hover {
+            background: #0a0f1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: left;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .info-title {
+            font-weight: 600;
+            color: #141E30;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .info-text {
+            color: #777777;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-direction: column;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            font-size: 15px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #141E30, #243B55);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #141E30;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .notification {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-top: 10px;
+            border: 1px solid #c3e6cb;
+        }
+
+        .notification.show {
+            display: block;
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .success-card {
+                padding: 40px 25px;
+                border-radius: 15px;
+            }
+
+            .success-message {
+                font-size: 20px;
+            }
+
+            .success-icon {
+                font-size: 50px;
+            }
+
+            .complaint-id-value {
+                font-size: 28px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body class="success-page">
+    <div class="success-container">
+        <div class="success-card">
+            <div class="success-icon">✅</div>
+            <div class="success-message">Complaint Submitted Successfully!</div>
+            <div class="success-subtext">
+                Your complaint has been received and logged in our system.
+            </div>
+
+            <div class="complaint-id-box">
+                <div class="complaint-id-label">Your Complaint ID</div>
+                <div class="complaint-id-value">{{ complaint_id }}</div>
+                <button class="copy-button" onclick="copyToClipboard()">📋 Copy ID</button>
+                <div class="notification" id="notification">Complaint ID copied to clipboard!</div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-title">📌 How to Track Your Complaint</div>
+                <div class="info-text">
+                    Save your complaint ID to track the status of your complaint. You can use this ID to follow up with the admin team.
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-title">🔒 Privacy Assured</div>
+                <div class="info-text">
+                    Your complaint has been submitted securely. All information is handled confidentially and will only be accessed by authorized personnel.
+                </div>
+            </div>
+
+            <div class="button-group">
+                <a href="/" class="btn btn-primary">🏠 Back to Home</a>
+                <a href="/complaint" class="btn btn-secondary">📝 Submit Another</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            const complaintId = "{{ complaint_id }}";
+            navigator.clipboard.writeText(complaintId).then(() => {
+                const notification = document.getElementById('notification');
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            });
+        }
+    </script>
+</body>
+</html>

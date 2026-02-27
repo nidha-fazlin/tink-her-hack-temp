@@ -1,0 +1,124 @@
+/* =============================================
+   HOME PAGE - Index
+   ============================================= */
+
+body.home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.home-container {
+    text-align: center;
+    animation: fadeIn 0.8s ease-in;
+}
+
+.home-container h1 {
+    font-size: 50px;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    color: var(--white);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.home-container .subtitle {
+    font-size: 20px;
+    opacity: 0.9;
+    margin-bottom: 50px;
+    color: var(--white);
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.button-group .btn {
+    padding: 14px 35px;
+    font-size: 16px;
+    min-width: 200px;
+}
+
+.btn-submit {
+    background: var(--white);
+    color: var(--primary-dark);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-submit:hover {
+    background: #f2f2f2;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-admin {
+    background: transparent;
+    border: 2px solid var(--white);
+    color: var(--white);
+}
+
+.btn-admin:hover {
+    background: var(--white);
+    color: var(--primary-dark);
+    transform: scale(1.05);
+}
+
+.home-footer {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    font-size: 30px;
+    opacity: 0.8;
+    color: var(--white);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .home-container h1 {
+        font-size: 36px;
+    }
+
+    .home-container .subtitle {
+        font-size: 16px;
+        margin-bottom: 40px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .button-group .btn {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .home-footer {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-container h1 {
+        font-size: 28px;
+    }
+
+    .home-footer {
+        bottom: 15px;
+    }
+}

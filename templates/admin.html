@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Admin Panel - SafeNest</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+
+<body class="admin-page">
+    <div class="container">
+        <div class="admin-header">
+            <h1>🛡️ SafeNest Admin Panel</h1>
+            <p>Complaint Management System</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Complaints</h3>
+                <div class="number">{{ complaints|length }}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Pending</h3>
+                <div class="number" id="pending-count">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Verified</h3>
+                <div class="number" id="verified-count">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Anonymous</h3>
+                <div class="number" id="anon-count">0</div>
+            </div>
+        </div>
+
+        {% if complaints|length > 0 %}
+        <div class="table-wrapper">
+            <div class="table-header">
+                <h2>📋 All Complaints</h2>
+                <div class="info">Total: {{ complaints|length }} complaints</div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Complaint</th>
+                        <th>Anonymous</th>
+                        <th>Name</th>
+                        <th>Room</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for complaint in complaints %}
+                    <tr>
+                        <td data-label="ID"><span class="complaint-id">#{{ complaint[0] }}</span></td>
+                        <td data-label="Complaint" class="complaint-text" title="{{ complaint[1] }}">{{ complaint[1][:100] }}{% if complaint[1]|length > 100 %}<strong>...</strong>{% endif %}</td>
+                        <td data-label="Anonymous">
+                            <span class="{% if complaint[2] == 'Yes' %}anon-yes{% else %}anon-no{% endif %}">
+                                {{ complaint[2] }}
+                            </span>
+                        </td>
+                        <td data-label="Name">{{ complaint[3] or '—' }}</td>
+                        <td data-label="Room">{{ complaint[4] or '—' }}</td>
+                        <td data-label="Phone">{{ complaint[5] or '—' }}</td>
+                        <td data-label="Status">
+                            {% if complaint[6] == 'Pending' %}
+                                <span class="badge badge-pending clickable-status" onclick="updateStatus({{ complaint[0] }}, 'Verified')" title="Click to verify">{{ complaint[6] }}</span>
+                            {% elif complaint[6] == 'Verified' %}
+                                <span class="badge badge-verified">{{ complaint[6] }}</span>
+                            {% elif complaint[6] == 'Resolved' %}
+                                <span class="badge badge-resolved">{{ complaint[6] }}</span>
+                            {% else %}
+                                <span class="badge badge-inprogress">{{ complaint[6] }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="table-wrapper">
+            <div class="empty-state">
+                <div class="icon">📭</div>
+                <p>No complaints submitted yet</p>
+                <p style="font-size: 13px; color: #999;">Check back later for incoming complaints.</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="admin-footer">
+            <a href="/" class="btn-home">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // Calculate stats
+        function updateStats() {
+            const complaints = document.querySelectorAll('tbody tr');
+            const pendingCount = Array.from(complaints).filter(row => 
+                row.querySelector('td:last-child').textContent.includes('Pending')
+            ).length;
+            const anonCount = Array.from(complaints).filter(row => 
+                row.querySelector('td:nth-child(3)').textContent.includes('Yes')
+            ).length;
+            const verifiedCount = Array.from(complaints).filter(row => 
+                row.querySelector('td:last-child').textContent.includes('Verified')
+            ).length;
+
+            document.getElementById('pending-count').textContent = pendingCount;
+            document.getElementById('verified-count').textContent = verifiedCount;
+            document.getElementById('anon-count').textContent = anonCount;
+        }
+
+        // Update complaint status
+        function updateStatus(complaintId, newStatus) {
+            // Show confirmation
+            if (!confirm(`Are you sure you want to mark this complaint as ${newStatus}?`)) {
+                return;
+            }
+
+            // Send request to update status
+            fetch(`/update_status/${complaintId}/${newStatus}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Reload the page to show updated status
+                    location.reload();
+                } else {
+                    alert('Error: ' + (data.error || 'Failed to update status'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating the status');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', updateStats);
+    </script>
+</body>
+</html>
