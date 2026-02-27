@@ -98,7 +98,7 @@ List the key features of your project:
 **System Architecture:**
 
 ![Architecture Diagram](![WhatsApp Image 2026-02-27 at 16 01 01](https://github.com/user-attachments/assets/a3a88567-8b27-4989-9e7e-49939d910641)
-)
+
 
 
 ---
@@ -109,11 +109,4 @@ List the key features of your project:
 
 
 
-
-## Project Demo
-
-### Video
-[Add your demo video link here - YouTube, Google Drive, etc.]
-
-*Explain what the video demonstrates - key features, user flow, technical highlights*
 
